@@ -1,0 +1,304 @@
+openapi: 3.0.3
+info:
+  title: Users app documentation
+  description: Development documentation
+  version: 1.0.50
+externalDocs:
+  description: Find out more about the Users API
+  url: www.example.com
+servers:
+  - url: http://localhost:3000/
+    description: Development server
+x-speakeasy-retries:
+  strategy: backoff
+  backoff:
+    initialInterval: 500
+    maxInterval: 60000
+    maxElapsedTime: 3600000
+    exponent: 1.5
+  statusCodes:
+    - 5XX
+  retryConnectionErrors: true
+tags:
+  - name: Users
+    description: Users operations
+    externalDocs:
+      description: Find more info here
+      url: https://example.com
+paths:
+  /users/:
+    get:
+      operationId: getUsers
+      summary: Get all users
+      description: Get all users from the database
+      responses:
+        '200':
+          description: The array of users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/user'
+              examples:
+                basic:
+                  value:
+                    - id: '1'
+                      name: Alice
+                      age: 20
+                    - id: '2'
+                      name: Bob
+                      age: 25
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              examples:
+                Server error:
+                  value:
+                    message: There was an error
+                    status: 500
+      tags:
+        - Users
+    post:
+      parameters: []
+      operationId: postUsers
+      summary: Create user
+      description: Add user to the database
+      responses:
+        '200':
+          description: The created users assigned id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/id'
+              examples:
+                Created user:
+                  value:
+                    id: '1'
+                    name: Alice
+                    age: 20
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              examples:
+                Server error:
+                  value:
+                    message: There was an error
+                    status: 500
+      x-speakeasy-retries:
+        strategy: backoff
+        backoff:
+          initialInterval: 300
+          maxInterval: 40000
+          maxElapsedTime: 3000000
+          exponent: 1.2
+        statusCodes:
+          - 5XX
+        retryConnectionErrors: true
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              example:
+                name: Alice
+                age: 20
+              type: object
+              properties:
+                name:
+                  example: Alice
+                  type: string
+                age:
+                  example: 20
+                  type: number
+              required:
+                - name
+                - age
+  /users/{id}:
+    get:
+      parameters:
+        - schema:
+            type: string
+            example: '1'
+          in: path
+          name: id
+          required: true
+      operationId: getUsersById
+      summary: Get user
+      description: Get user by id from the database
+      responses:
+        '200':
+          description: The user object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+              examples:
+                basic:
+                  value:
+                    id: '1'
+                    name: Alice
+                    age: 20
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              examples:
+                User not found:
+                  value:
+                    message: User not found :(
+                    status: 404
+      tags:
+        - Users
+    delete:
+      parameters:
+        - schema:
+            type: string
+            example: '1'
+          in: path
+          name: id
+          required: true
+      operationId: deleteUsersById
+      summary: Delete user
+      description: Delete user by id from the database
+      responses:
+        '200':
+          description: Deleting user was successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/successResponse'
+              examples:
+                success:
+                  value:
+                    success: true
+        '422':
+          description: Invalid user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              examples:
+                Invalid user:
+                  value:
+                    message: Invalid user
+                    status: 422
+      tags:
+        - Users
+    patch:
+      parameters:
+        - schema:
+            type: string
+            example: '1'
+          in: path
+          name: id
+          required: true
+      operationId: patchUsersById
+      summary: Update user
+      description: Update user by id from the database
+      responses:
+        '200':
+          description: Update was successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/successResponse'
+              examples:
+                Success:
+                  value:
+                    success: true
+        '422':
+          description: Invalid user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+              examples:
+                Invalid user:
+                  value:
+                    message: Invalid user
+                    status: 422
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              example:
+                age: 21
+              type: object
+              properties:
+                name:
+                  example: Alice
+                  type: string
+                age:
+                  example: 20
+                  type: number
+components:
+  schemas:
+    user:
+      example:
+        id: '1'
+        name: Alice
+        age: 20
+      type: object
+      properties:
+        id:
+          example: '1'
+          type: string
+        name:
+          example: Alice
+          type: string
+        age:
+          example: 20
+          type: number
+      required:
+        - id
+        - name
+        - age
+    id:
+      example:
+        id: '1'
+      type: object
+      properties:
+        id:
+          example: '1'
+          type: string
+      required:
+        - id
+    errorResponse:
+      example:
+        status: 404
+        message: User not found :(
+      type: object
+      properties:
+        status:
+          example: 404
+          type: number
+        message:
+          example: User not found :(
+          type: string
+      required:
+        - status
+        - message
+    successResponse:
+      example:
+        success: true
+      type: object
+      properties:
+        success:
+          example: true
+          type: boolean
+      required:
+        - success

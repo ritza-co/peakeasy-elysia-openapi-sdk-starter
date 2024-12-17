@@ -3,10 +3,14 @@
   "version": "1.0.50",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/index.ts"
+    "dev": "bun run --watch src/index.ts",
+    "create:openapi": "bun run src/generateOpenAPIYamlFile.ts"
   },
   "dependencies": {
-    "elysia": "latest"
+    "@elysiajs/swagger": "^1.1.6",
+    "@types/js-yaml": "^4.0.9",
+    "elysia": "latest",
+    "js-yaml": "^4.1.0"
   },
   "devDependencies": {
     "bun-types": "latest"
