@@ -53,6 +53,22 @@ You can use the provided script to run the application in development mode. It w
 bun run dev
 ```
 
+## Creating an OpenAPI specification
+
+Run the following command to create an OpenAPI spec YAML file in your root folder:
+
+```bash
+bun run create:openapi
+```
+
+## Creating an SDK with Speakeasy
+
+Run the following command to create a Speakeasy SDK:
+
+```bash
+speakeasy quickstart
+```
+
 ## License
 
 This project is licensed under the terms of the Apache 2.0 license.
