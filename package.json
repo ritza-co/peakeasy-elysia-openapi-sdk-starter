@@ -7,6 +7,7 @@
     "create:openapi": "bun run src/generateOpenAPIYamlFile.ts"
   },
   "dependencies": {
+    "@elysiajs/cors": "^1.1.1",
     "@elysiajs/swagger": "^1.1.6",
     "@types/js-yaml": "^4.0.9",
     "elysia": "latest",

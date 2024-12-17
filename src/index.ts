@@ -2,12 +2,18 @@ import { Elysia } from 'elysia'
 import { users } from './controllers/users';
 import { swagger } from '@elysiajs/swagger'
 import packageJson from '../package.json';
+import { cors } from '@elysiajs/cors';
 
 const app = new Elysia()
   .onError(({ error, code }) => {
     if (code === 'NOT_FOUND') return 'Not Found :('
       console.error(error);
     })
+    .use(
+      cors({
+        origin: 'http://localhost:5173'
+      })
+    )
   .use(users)
   .use(
     swagger({
