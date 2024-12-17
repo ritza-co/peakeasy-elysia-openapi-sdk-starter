@@ -55,7 +55,7 @@ export const users = new Elysia({ prefix: '/users' })
   })
   .get('/', ({ users }) => users.data)
   .get('/:id',({ users, params: { id }, error }) => {
-      return users.data.filter(user => user.id === id) ?? error(404, 'Not Found :(')
+    return users.data.find(user => user.id === id) ?? error(404, 'User not found :(')
     },
     {
       params: t.Object({
