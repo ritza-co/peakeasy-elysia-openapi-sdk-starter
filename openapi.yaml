@@ -108,6 +108,8 @@ paths:
         content:
           application/json:
             schema:
+              title: User
+              description: User object
               example:
                 name: Alice
                 age: 20
@@ -235,6 +237,8 @@ paths:
         content:
           application/json:
             schema:
+              title: User
+              description: User object
               example:
                 age: 21
               type: object
@@ -248,6 +252,8 @@ paths:
 components:
   schemas:
     user:
+      title: User
+      description: User object
       example:
         id: '1'
         name: Alice
@@ -268,6 +274,8 @@ components:
         - name
         - age
     id:
+      title: ID object
+      description: ID object
       example:
         id: '1'
       type: object
@@ -278,6 +286,8 @@ components:
       required:
         - id
     errorResponse:
+      title: Error response
+      description: Error response object
       example:
         status: 404
         message: User not found :(
@@ -293,6 +303,8 @@ components:
         - status
         - message
     successResponse:
+      title: Success response
+      description: Success response object
       example:
         success: true
       type: object

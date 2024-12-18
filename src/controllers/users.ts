@@ -11,6 +11,8 @@ const userInfo = t.Object({
     example: 20
   })
 }, {
+  title: 'User',
+  description: 'User object',
   example: 
     {
       id: "1",
@@ -24,6 +26,8 @@ const idObject = t.Object({
     example: '1'
   })
 }, {
+  title: 'ID object',
+  description: 'ID object',
   example: 
     {
       id: "1"
@@ -38,6 +42,8 @@ const errorResponse = t.Object({
     example: 'User not found :('
   })
 }, {
+  title: 'Error response',
+  description: 'Error response object',
   example: 
     {
       status: 404,
@@ -50,6 +56,8 @@ const successResponse = t.Object({
     example: true
   })
 }, {
+  title: 'Success response',
+  description: 'Success response object',
   example: 
     {
       success: true
