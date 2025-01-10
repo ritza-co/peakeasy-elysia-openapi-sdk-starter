@@ -7,15 +7,15 @@
 
 </div>
 
-This example ElysiaJS app demonstrates Speakeasy-recommended practices for creating clear OpenAPI specifications and SDKs.
+This example ElysiaJS app demonstrates the Speakeasy-recommended practices for creating clear OpenAPI documents and SDKs.
 
-This project has five example CRUD API endpoints in `src/controllers/users.ts` to get all users, get a user by id, create a user, delete a user, and update a user.
+This project has five example CRUD API endpoints in `src/controllers/users.ts`, which can be used respectively to get all users, to get a user by id, to create a user, to delete a user, and to update a user.
 
 ## Prerequisites
 
 You need to have [Bun](https://bun.sh/) installed on your system to run this project.
 
-To generate an SDK, you'll also need the Speakeasy CLI installed, or use the Speakeasy dashboard.
+To generate an SDK, you need to have the Speakeasy CLI installed or be comfortable using the Speakeasy dashboard UI.
 
 ## Installation
 
@@ -53,17 +53,17 @@ You can use the provided script to run the application in development mode. It w
 bun run dev
 ```
 
-## Creating an OpenAPI specification
+## Generating an OpenAPI document
 
-Run the following command to create an OpenAPI spec YAML file in your root folder:
+Run the following command to generate an OpenAPI document YAML file in your root folder:
 
 ```bash
-bun run create:openapi
+bun run generate:openapi
 ```
 
-## Creating an SDK with Speakeasy
+## Generating an SDK with Speakeasy
 
-Run the following command to create a Speakeasy SDK:
+Run the following command to generate a Speakeasy SDK:
 
 ```bash
 speakeasy quickstart
